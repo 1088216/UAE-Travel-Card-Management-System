@@ -1,0 +1,188 @@
+package com.demo.travelcardsystem.entity;
+
+import com.demo.travelcardsystem.constant.TransportType;
+import lombok.Generated;
+
+public class Journey {
+   private Station startStation;
+   private Station endStation;
+   private TransportType transportType;
+   private boolean journeyCompleted;
+
+   @Generated
+   Journey(final Station startStation, final Station endStation, final TransportType transportType, final boolean journeyCompleted) {
+      this.startStation = startStation;
+      this.endStation = endStation;
+      this.transportType = transportType;
+      this.journeyCompleted = journeyCompleted;
+   }
+
+   @Generated
+   public static JourneyBuilder builder() {
+      return new JourneyBuilder();
+   }
+
+   @Generated
+   public Station getStartStation() {
+      return this.startStation;
+   }
+
+   @Generated
+   public Station getEndStation() {
+      return this.endStation;
+   }
+
+   @Generated
+   public TransportType getTransportType() {
+      return this.transportType;
+   }
+
+   @Generated
+   public boolean isJourneyCompleted() {
+      return this.journeyCompleted;
+   }
+
+   @Generated
+   public void setStartStation(final Station startStation) {
+      this.startStation = startStation;
+   }
+
+   @Generated
+   public void setEndStation(final Station endStation) {
+      this.endStation = endStation;
+   }
+
+   @Generated
+   public void setTransportType(final TransportType transportType) {
+      this.transportType = transportType;
+   }
+
+   @Generated
+   public void setJourneyCompleted(final boolean journeyCompleted) {
+      this.journeyCompleted = journeyCompleted;
+   }
+
+   @Generated
+   public boolean equals(final Object o) {
+      if (o == this) {
+         return true;
+      } else if (!(o instanceof Journey)) {
+         return false;
+      } else {
+         Journey other = (Journey)o;
+         if (!other.canEqual(this)) {
+            return false;
+         } else if (this.isJourneyCompleted() != other.isJourneyCompleted()) {
+            return false;
+         } else {
+            Object this$startStation = this.getStartStation();
+            Object other$startStation = other.getStartStation();
+            if (this$startStation == null) {
+               if (other$startStation != null) {
+                  return false;
+               }
+            } else if (!this$startStation.equals(other$startStation)) {
+               return false;
+            }
+
+            Object this$endStation = this.getEndStation();
+            Object other$endStation = other.getEndStation();
+            if (this$endStation == null) {
+               if (other$endStation != null) {
+                  return false;
+               }
+            } else if (!this$endStation.equals(other$endStation)) {
+               return false;
+            }
+
+            Object this$transportType = this.getTransportType();
+            Object other$transportType = other.getTransportType();
+            if (this$transportType == null) {
+               if (other$transportType != null) {
+                  return false;
+               }
+            } else if (!this$transportType.equals(other$transportType)) {
+               return false;
+            }
+
+            return true;
+         }
+      }
+   }
+
+   @Generated
+   protected boolean canEqual(final Object other) {
+      return other instanceof Journey;
+   }
+
+   @Generated
+   public int hashCode() {
+      int PRIME = 59;
+      int result = 1;
+      result = result * 59 + (this.isJourneyCompleted() ? 79 : 97);
+      Object $startStation = this.getStartStation();
+      result = result * 59 + ($startStation == null ? 43 : $startStation.hashCode());
+      Object $endStation = this.getEndStation();
+      result = result * 59 + ($endStation == null ? 43 : $endStation.hashCode());
+      Object $transportType = this.getTransportType();
+      result = result * 59 + ($transportType == null ? 43 : $transportType.hashCode());
+      return result;
+   }
+
+   @Generated
+   public String toString() {
+      String var10000 = String.valueOf(this.getStartStation());
+      return "Journey(startStation=" + var10000 + ", endStation=" + String.valueOf(this.getEndStation()) + ", transportType=" + String.valueOf(this.getTransportType()) + ", journeyCompleted=" + this.isJourneyCompleted() + ")";
+   }
+
+   @Generated
+   public static class JourneyBuilder {
+      @Generated
+      private Station startStation;
+      @Generated
+      private Station endStation;
+      @Generated
+      private TransportType transportType;
+      @Generated
+      private boolean journeyCompleted;
+
+      @Generated
+      JourneyBuilder() {
+      }
+
+      @Generated
+      public JourneyBuilder startStation(final Station startStation) {
+         this.startStation = startStation;
+         return this;
+      }
+
+      @Generated
+      public JourneyBuilder endStation(final Station endStation) {
+         this.endStation = endStation;
+         return this;
+      }
+
+      @Generated
+      public JourneyBuilder transportType(final TransportType transportType) {
+         this.transportType = transportType;
+         return this;
+      }
+
+      @Generated
+      public JourneyBuilder journeyCompleted(final boolean journeyCompleted) {
+         this.journeyCompleted = journeyCompleted;
+         return this;
+      }
+
+      @Generated
+      public Journey build() {
+         return new Journey(this.startStation, this.endStation, this.transportType, this.journeyCompleted);
+      }
+
+      @Generated
+      public String toString() {
+         String var10000 = String.valueOf(this.startStation);
+         return "Journey.JourneyBuilder(startStation=" + var10000 + ", endStation=" + String.valueOf(this.endStation) + ", transportType=" + String.valueOf(this.transportType) + ", journeyCompleted=" + this.journeyCompleted + ")";
+      }
+   }
+}

@@ -1,0 +1,61 @@
+package com.demo.travelcardsystem.repository;
+
+import com.demo.travelcardsystem.entity.Station;
+import com.demo.travelcardsystem.entity.TravelCard;
+import com.demo.travelcardsystem.exception.InvalidCardException;
+import com.demo.travelcardsystem.exception.InvalidDataProvidedException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class InMemoryCardTransactionRepository {
+   private ConcurrentMap<String, TravelCard> travelCardStore = new ConcurrentHashMap();
+   private Set<Station> stationStore = new HashSet();
+
+   public InMemoryCardTransactionRepository() {
+   }
+
+   public TravelCard registerNewCard(TravelCard travelCard) {
+      if (null != this.travelCardStore.get(travelCard.getCardNumber())) {
+         throw new InvalidCardException("This card is already registered.");
+      } else {
+         this.travelCardStore.put(travelCard.getCardNumber(), travelCard);
+         return travelCard;
+      }
+   }
+
+   public TravelCard findCardByCardNumber(String cardNumber) {
+      TravelCard travelCard = (TravelCard)this.travelCardStore.get(cardNumber);
+      if (travelCard == null) {
+         throw new InvalidCardException("This card is Invalid. Please use a valid card");
+      } else {
+         return travelCard;
+      }
+   }
+
+   public Station findStationByName(String stationName) {
+      return (Station)this.stationStore.stream().filter((station) -> station.getName().equals(stationName)).findAny().orElseThrow(InvalidDataProvidedException::new);
+   }
+
+   public boolean addAllStationsToStationStore(Set<Station> stations) {
+      this.clearStationStore();
+      return this.stationStore.addAll(stations);
+   }
+
+   public void clearStationStore() {
+      this.stationStore.clear();
+   }
+
+   public void clearTravelCardStore() {
+      this.travelCardStore.clear();
+   }
+
+   public List<String> fetchAllCardNumber() {
+      return new ArrayList(this.travelCardStore.keySet());
+   }
+}

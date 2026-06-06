@@ -1,0 +1,121 @@
+package com.demo.travelcardsystem.entity;
+
+import lombok.Generated;
+
+public class TravelCard implements Observable {
+   private String cardNumber;
+   private double balance;
+   private Journey currentJourney;
+
+   public synchronized void addCredit(double amount) {
+      this.balance += amount;
+   }
+
+   public synchronized void debitAmount(double amount) {
+      this.balance -= amount;
+   }
+
+   public void notifyAllObservers() {
+      observerCollection.forEach((observer) -> observer.reactOnChange(this));
+   }
+
+   public void registerObserver(Observer observer) {
+      observerCollection.add(observer);
+   }
+
+   @Generated
+   public TravelCard() {
+   }
+
+   @Generated
+   public String getCardNumber() {
+      return this.cardNumber;
+   }
+
+   @Generated
+   public double getBalance() {
+      return this.balance;
+   }
+
+   @Generated
+   public Journey getCurrentJourney() {
+      return this.currentJourney;
+   }
+
+   @Generated
+   public void setCardNumber(final String cardNumber) {
+      this.cardNumber = cardNumber;
+   }
+
+   @Generated
+   public void setBalance(final double balance) {
+      this.balance = balance;
+   }
+
+   @Generated
+   public void setCurrentJourney(final Journey currentJourney) {
+      this.currentJourney = currentJourney;
+   }
+
+   @Generated
+   public String toString() {
+      String var10000 = this.getCardNumber();
+      return "TravelCard(cardNumber=" + var10000 + ", balance=" + this.getBalance() + ", currentJourney=" + String.valueOf(this.getCurrentJourney()) + ")";
+   }
+
+   @Generated
+   public boolean equals(final Object o) {
+      if (o == this) {
+         return true;
+      } else if (!(o instanceof TravelCard)) {
+         return false;
+      } else {
+         TravelCard other = (TravelCard)o;
+         if (!other.canEqual(this)) {
+            return false;
+         } else if (Double.compare(this.getBalance(), other.getBalance()) != 0) {
+            return false;
+         } else {
+            Object this$cardNumber = this.getCardNumber();
+            Object other$cardNumber = other.getCardNumber();
+            if (this$cardNumber == null) {
+               if (other$cardNumber != null) {
+                  return false;
+               }
+            } else if (!this$cardNumber.equals(other$cardNumber)) {
+               return false;
+            }
+
+            Object this$currentJourney = this.getCurrentJourney();
+            Object other$currentJourney = other.getCurrentJourney();
+            if (this$currentJourney == null) {
+               if (other$currentJourney != null) {
+                  return false;
+               }
+            } else if (!this$currentJourney.equals(other$currentJourney)) {
+               return false;
+            }
+
+            return true;
+         }
+      }
+   }
+
+   @Generated
+   protected boolean canEqual(final Object other) {
+      return other instanceof TravelCard;
+   }
+
+   @Generated
+   public int hashCode() {
+      int PRIME = 59;
+      int result = 1;
+      long $balance = Double.doubleToLongBits(this.getBalance());
+      result = result * 59 + (int)($balance >>> 32 ^ $balance);
+      Object $cardNumber = this.getCardNumber();
+      result = result * 59 + ($cardNumber == null ? 43 : $cardNumber.hashCode());
+      Object $currentJourney = this.getCurrentJourney();
+      result = result * 59 + ($currentJourney == null ? 43 : $currentJourney.hashCode());
+      return result;
+   }
+}

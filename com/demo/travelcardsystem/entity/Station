@@ -1,0 +1,94 @@
+package com.demo.travelcardsystem.entity;
+
+import com.demo.travelcardsystem.constant.Zone;
+import java.util.Set;
+import lombok.Generated;
+
+public class Station {
+   private String name;
+   private Set<Zone> zones;
+
+   @Generated
+   public String getName() {
+      return this.name;
+   }
+
+   @Generated
+   public Set<Zone> getZones() {
+      return this.zones;
+   }
+
+   @Generated
+   public void setName(final String name) {
+      this.name = name;
+   }
+
+   @Generated
+   public void setZones(final Set<Zone> zones) {
+      this.zones = zones;
+   }
+
+   @Generated
+   public boolean equals(final Object o) {
+      if (o == this) {
+         return true;
+      } else if (!(o instanceof Station)) {
+         return false;
+      } else {
+         Station other = (Station)o;
+         if (!other.canEqual(this)) {
+            return false;
+         } else {
+            Object this$name = this.getName();
+            Object other$name = other.getName();
+            if (this$name == null) {
+               if (other$name != null) {
+                  return false;
+               }
+            } else if (!this$name.equals(other$name)) {
+               return false;
+            }
+
+            Object this$zones = this.getZones();
+            Object other$zones = other.getZones();
+            if (this$zones == null) {
+               if (other$zones != null) {
+                  return false;
+               }
+            } else if (!this$zones.equals(other$zones)) {
+               return false;
+            }
+
+            return true;
+         }
+      }
+   }
+
+   @Generated
+   protected boolean canEqual(final Object other) {
+      return other instanceof Station;
+   }
+
+   @Generated
+   public int hashCode() {
+      int PRIME = 59;
+      int result = 1;
+      Object $name = this.getName();
+      result = result * 59 + ($name == null ? 43 : $name.hashCode());
+      Object $zones = this.getZones();
+      result = result * 59 + ($zones == null ? 43 : $zones.hashCode());
+      return result;
+   }
+
+   @Generated
+   public String toString() {
+      String var10000 = this.getName();
+      return "Station(name=" + var10000 + ", zones=" + String.valueOf(this.getZones()) + ")";
+   }
+
+   @Generated
+   public Station(final String name, final Set<Zone> zones) {
+      this.name = name;
+      this.zones = zones;
+   }
+}

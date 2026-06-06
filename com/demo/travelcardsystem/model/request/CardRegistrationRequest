@@ -1,0 +1,92 @@
+package com.demo.travelcardsystem.model.request;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Generated;
+
+@JsonIgnoreProperties
+public class CardRegistrationRequest {
+   private String cardNumber;
+   private Double balance;
+
+   @Generated
+   public CardRegistrationRequest() {
+   }
+
+   @Generated
+   public String getCardNumber() {
+      return this.cardNumber;
+   }
+
+   @Generated
+   public Double getBalance() {
+      return this.balance;
+   }
+
+   @Generated
+   public void setCardNumber(final String cardNumber) {
+      this.cardNumber = cardNumber;
+   }
+
+   @Generated
+   public void setBalance(final Double balance) {
+      this.balance = balance;
+   }
+
+   @Generated
+   public boolean equals(final Object o) {
+      if (o == this) {
+         return true;
+      } else if (!(o instanceof CardRegistrationRequest)) {
+         return false;
+      } else {
+         CardRegistrationRequest other = (CardRegistrationRequest)o;
+         if (!other.canEqual(this)) {
+            return false;
+         } else {
+            Object this$balance = this.getBalance();
+            Object other$balance = other.getBalance();
+            if (this$balance == null) {
+               if (other$balance != null) {
+                  return false;
+               }
+            } else if (!this$balance.equals(other$balance)) {
+               return false;
+            }
+
+            Object this$cardNumber = this.getCardNumber();
+            Object other$cardNumber = other.getCardNumber();
+            if (this$cardNumber == null) {
+               if (other$cardNumber != null) {
+                  return false;
+               }
+            } else if (!this$cardNumber.equals(other$cardNumber)) {
+               return false;
+            }
+
+            return true;
+         }
+      }
+   }
+
+   @Generated
+   protected boolean canEqual(final Object other) {
+      return other instanceof CardRegistrationRequest;
+   }
+
+   @Generated
+   public int hashCode() {
+      int PRIME = 59;
+      int result = 1;
+      Object $balance = this.getBalance();
+      result = result * 59 + ($balance == null ? 43 : $balance.hashCode());
+      Object $cardNumber = this.getCardNumber();
+      result = result * 59 + ($cardNumber == null ? 43 : $cardNumber.hashCode());
+      return result;
+   }
+
+   @Generated
+   public String toString() {
+      String var10000 = this.getCardNumber();
+      return "CardRegistrationRequest(cardNumber=" + var10000 + ", balance=" + this.getBalance() + ")";
+   }
+}
