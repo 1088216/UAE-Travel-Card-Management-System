@@ -1,0 +1,86 @@
+package com.demo.travelcardsystem.service;
+
+import com.demo.travelcardsystem.entity.Journey;
+import com.demo.travelcardsystem.entity.Station;
+import com.demo.travelcardsystem.entity.TravelCard;
+import com.demo.travelcardsystem.exception.InvalidCardException;
+import com.demo.travelcardsystem.exception.InvalidDataProvidedException;
+import com.demo.travelcardsystem.exception.InvalidRechargeAmount;
+import com.demo.travelcardsystem.model.request.CardRegistrationRequest;
+import com.demo.travelcardsystem.model.request.SwipeRequest;
+import com.demo.travelcardsystem.model.response.TravelCardResponse;
+import com.demo.travelcardsystem.repository.InMemoryCardTransactionRepository;
+import com.demo.travelcardsystem.service.util.TravelCardConverter;
+import java.util.List;
+import lombok.Generated;
+import org.springframework.stereotype.Service;
+
+@Service
+public class TravellerService {
+   private InMemoryCardTransactionRepository inMemoryCardTransactionRepository;
+   private TravelCardConverter travelCardConverter;
+
+   public void registerNewCard(CardRegistrationRequest cardRegistrationRequest) {
+      if (cardRegistrationRequest != null && cardRegistrationRequest.getCardNumber() != null && !cardRegistrationRequest.getCardNumber().isEmpty()) {
+         if (cardRegistrationRequest != null && cardRegistrationRequest.getBalance() < (double)0.0F) {
+            throw new InvalidRechargeAmount("Recharge amount must not be negative");
+         } else {
+            TravelCard travelCard = new TravelCard();
+            travelCard.setCardNumber(cardRegistrationRequest.getCardNumber());
+            travelCard.setBalance(cardRegistrationRequest.getBalance());
+            this.inMemoryCardTransactionRepository.registerNewCard(travelCard);
+         }
+      } else {
+         throw new InvalidCardException("This card is Invalid. Please use a valid card");
+      }
+   }
+
+   public void rechargeTheCard(String cardNumber, double rechargeAmount) {
+      if (cardNumber != null && !cardNumber.isEmpty()) {
+         if (rechargeAmount < (double)0.0F) {
+            throw new InvalidRechargeAmount("Recharge amount must not be negative");
+         } else {
+            TravelCard travelCard = this.inMemoryCardTransactionRepository.findCardByCardNumber(cardNumber);
+            travelCard.addCredit(rechargeAmount);
+         }
+      } else {
+         throw new InvalidCardException("This card is Invalid. Please use a valid card");
+      }
+   }
+
+   public TravelCardResponse swipeCard(SwipeRequest swipeRequest) {
+      if (null == swipeRequest.getTransportType()) {
+         throw new InvalidDataProvidedException();
+      } else {
+         TravelCard travelCard = this.inMemoryCardTransactionRepository.findCardByCardNumber(swipeRequest.getCardNumber());
+         Station station = this.inMemoryCardTransactionRepository.findStationByName(swipeRequest.getStationName());
+         if (null != travelCard.getCurrentJourney()) {
+            travelCard.getCurrentJourney().setEndStation(station);
+            travelCard.getCurrentJourney().setJourneyCompleted(true);
+            travelCard.notifyAllObservers();
+            travelCard.setCurrentJourney((Journey)null);
+         } else {
+            Journey journey = Journey.builder().startStation(station).transportType(swipeRequest.getTransportType()).journeyCompleted(false).build();
+            travelCard.setCurrentJourney(journey);
+            travelCard.notifyAllObservers();
+         }
+
+         return (TravelCardResponse)this.travelCardConverter.travelCard2TravelCardResponseConverter.apply(travelCard);
+      }
+   }
+
+   public TravelCardResponse checkCardDetail(String cardNumber) {
+      TravelCard travelCard = this.inMemoryCardTransactionRepository.findCardByCardNumber(cardNumber);
+      return (TravelCardResponse)this.travelCardConverter.travelCard2TravelCardResponseConverter.apply(travelCard);
+   }
+
+   public List<String> fetchAllCard() {
+      return this.inMemoryCardTransactionRepository.fetchAllCardNumber();
+   }
+
+   @Generated
+   public TravellerService(final InMemoryCardTransactionRepository inMemoryCardTransactionRepository, final TravelCardConverter travelCardConverter) {
+      this.inMemoryCardTransactionRepository = inMemoryCardTransactionRepository;
+      this.travelCardConverter = travelCardConverter;
+   }
+}

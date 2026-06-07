@@ -1,0 +1,88 @@
+package com.demo.travelcardsystem.entity;
+
+import com.demo.travelcardsystem.service.util.FareCalculator;
+import java.util.Optional;
+import lombok.Generated;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TravelCardObserver implements Observer<TravelCard> {
+   private FareCalculator fareCalculator;
+
+   public void reactOnChange(TravelCard travelCard) {
+      Journey journey = travelCard.getCurrentJourney();
+      if (journey.isJourneyCompleted()) {
+         travelCard.addCredit(this.fareCalculator.getTravelStrategy().getRuleCollection().getMaxFare());
+         this.debitChargeableFare(travelCard);
+      } else {
+         travelCard.debitAmount(this.fareCalculator.getTravelStrategy().getRuleCollection().getMaxFare());
+      }
+
+   }
+
+   private void debitChargeableFare(TravelCard card) {
+      Double maxFare = this.fareCalculator.getTravelStrategy().getRuleCollection().getMaxFare();
+      Double fareAmount = (Double)Optional.of(this.fareCalculator.calculate(card.getCurrentJourney())).orElse(maxFare);
+      card.debitAmount(fareAmount);
+   }
+
+   @Generated
+   public FareCalculator getFareCalculator() {
+      return this.fareCalculator;
+   }
+
+   @Generated
+   public void setFareCalculator(final FareCalculator fareCalculator) {
+      this.fareCalculator = fareCalculator;
+   }
+
+   @Generated
+   public boolean equals(final Object o) {
+      if (o == this) {
+         return true;
+      } else if (!(o instanceof TravelCardObserver)) {
+         return false;
+      } else {
+         TravelCardObserver other = (TravelCardObserver)o;
+         if (!other.canEqual(this)) {
+            return false;
+         } else {
+            Object this$fareCalculator = this.getFareCalculator();
+            Object other$fareCalculator = other.getFareCalculator();
+            if (this$fareCalculator == null) {
+               if (other$fareCalculator != null) {
+                  return false;
+               }
+            } else if (!this$fareCalculator.equals(other$fareCalculator)) {
+               return false;
+            }
+
+            return true;
+         }
+      }
+   }
+
+   @Generated
+   protected boolean canEqual(final Object other) {
+      return other instanceof TravelCardObserver;
+   }
+
+   @Generated
+   public int hashCode() {
+      int PRIME = 59;
+      int result = 1;
+      Object $fareCalculator = this.getFareCalculator();
+      result = result * 59 + ($fareCalculator == null ? 43 : $fareCalculator.hashCode());
+      return result;
+   }
+
+   @Generated
+   public String toString() {
+      return "TravelCardObserver(fareCalculator=" + String.valueOf(this.getFareCalculator()) + ")";
+   }
+
+   @Generated
+   public TravelCardObserver(final FareCalculator fareCalculator) {
+      this.fareCalculator = fareCalculator;
+   }
+}

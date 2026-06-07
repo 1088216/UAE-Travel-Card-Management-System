@@ -1,0 +1,97 @@
+package com.demo.travelcardsystem.entity;
+
+import com.demo.travelcardsystem.constant.Zone;
+import lombok.Generated;
+
+public class ZonePair {
+   private Zone startZone;
+   private Zone endZone;
+
+   public boolean checkIfJourneyMatchToThisZonePair(Journey journey) {
+      return journey.getStartStation().getZones().contains(this.startZone) && journey.getEndStation().getZones().contains(this.endZone);
+   }
+
+   @Generated
+   public Zone getStartZone() {
+      return this.startZone;
+   }
+
+   @Generated
+   public Zone getEndZone() {
+      return this.endZone;
+   }
+
+   @Generated
+   public void setStartZone(final Zone startZone) {
+      this.startZone = startZone;
+   }
+
+   @Generated
+   public void setEndZone(final Zone endZone) {
+      this.endZone = endZone;
+   }
+
+   @Generated
+   public boolean equals(final Object o) {
+      if (o == this) {
+         return true;
+      } else if (!(o instanceof ZonePair)) {
+         return false;
+      } else {
+         ZonePair other = (ZonePair)o;
+         if (!other.canEqual(this)) {
+            return false;
+         } else {
+            Object this$startZone = this.getStartZone();
+            Object other$startZone = other.getStartZone();
+            if (this$startZone == null) {
+               if (other$startZone != null) {
+                  return false;
+               }
+            } else if (!this$startZone.equals(other$startZone)) {
+               return false;
+            }
+
+            Object this$endZone = this.getEndZone();
+            Object other$endZone = other.getEndZone();
+            if (this$endZone == null) {
+               if (other$endZone != null) {
+                  return false;
+               }
+            } else if (!this$endZone.equals(other$endZone)) {
+               return false;
+            }
+
+            return true;
+         }
+      }
+   }
+
+   @Generated
+   protected boolean canEqual(final Object other) {
+      return other instanceof ZonePair;
+   }
+
+   @Generated
+   public int hashCode() {
+      int PRIME = 59;
+      int result = 1;
+      Object $startZone = this.getStartZone();
+      result = result * 59 + ($startZone == null ? 43 : $startZone.hashCode());
+      Object $endZone = this.getEndZone();
+      result = result * 59 + ($endZone == null ? 43 : $endZone.hashCode());
+      return result;
+   }
+
+   @Generated
+   public String toString() {
+      String var10000 = String.valueOf(this.getStartZone());
+      return "ZonePair(startZone=" + var10000 + ", endZone=" + String.valueOf(this.getEndZone()) + ")";
+   }
+
+   @Generated
+   public ZonePair(final Zone startZone, final Zone endZone) {
+      this.startZone = startZone;
+      this.endZone = endZone;
+   }
+}
